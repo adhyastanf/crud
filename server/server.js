@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
-const url = "mongodb+srv://adhyastanf:adhyastanf@cluster0.4qbdn.mongodb.net/newItemsDB?retryWrites=true&w=majority";
+const url = "mongodb://localhost:27017";
 const port = 3001;
 
 // config
@@ -77,5 +77,3 @@ app.put("/put/:id", (req, res) => {
 app.listen(port, () => {
   console.log("Express is running");
 });
-
-console.log(Item);

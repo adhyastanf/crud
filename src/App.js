@@ -18,13 +18,13 @@ function App() {
     },
   ]);
 
-  const [isPut, setIsPut] = useState(false)
+  const [isPut, setIsPut] = useState(false);
   const [updatedItem, setUpdatedItem] = useState({
-    username:'',
-    numberPhone:'',
-    email:'',
-    id:"",
-  })
+    username: "",
+    numberPhone: "",
+    email: "",
+    id: "",
+  });
 
   useEffect(() => {
     fetch("/items")
@@ -57,50 +57,47 @@ function App() {
   };
 
   const deleteItem = (id) => {
-    axios.delete('/delete/' + id)
-    alert("item deleted")
-    console.log(`Delete item with id ${id}`)
+    axios.delete("/delete/" + id);
+    alert("item deleted");
+    console.log(`Delete item with id ${id}`);
     // .then(item => console.log(item))
-  }
+  };
 
   const openUpdate = (id) => {
-    setIsPut(true)
-    setUpdatedItem(prevItem => {
-      return(
-        {
-          ...prevItem,id:id
-        }
-      )
-    })
-  }
+    setIsPut(true);
+    setUpdatedItem((prevItem) => {
+      return {
+        ...prevItem,
+        id: id,
+      };
+    });
+  };
 
   const updateItem = (id) => {
-    axios.put('/put/' + id, updatedItem)
-    alert('item updated')
-    console.log(`item with id ${id} updated`)
-  }
+    axios.put("/put/" + id, updatedItem);
+    alert("item updated");
+    console.log(`item with id ${id} updated`);
+  };
 
   const handleUpdate = (e) => {
-    const {name,value} = e.target
-    setUpdatedItem(prevItem => {
-      return(
-        {
-          ...prevItem,
-          [name]:value
-        }
-      )
-    })
-    console.log(updatedItem)
-  }
+    const { name, value } = e.target;
+    setUpdatedItem((prevItem) => {
+      return {
+        ...prevItem,
+        [name]: value,
+      };
+    });
+    console.log(updatedItem);
+  };
 
   return (
     <div className="App">
       <div className="containerInput">
-        <input onChange={isPut?handleUpdate:handleChange} value={isPut?updatedItem.username:item.username} name="username" placeholder="username"></input>
-        <input onChange={isPut?handleUpdate:handleChange} value={isPut?updatedItem.numberPhone:item.numberPhone} name="numberPhone" placeholder="numberPhone"></input>
-        <input onChange={isPut?handleUpdate:handleChange} value={isPut?updatedItem.email:item.email} name="email" placeholder="email"></input>
+        <input onChange={isPut ? handleUpdate : handleChange} value={isPut ? updatedItem.username : item.username} name="username" placeholder="username"></input>
+        <input onChange={isPut ? handleUpdate : handleChange} value={isPut ? updatedItem.numberPhone : item.numberPhone} name="numberPhone" placeholder="numberPhone"></input>
+        <input onChange={isPut ? handleUpdate : handleChange} value={isPut ? updatedItem.email : item.email} name="email" placeholder="email"></input>
       </div>
-      <button onClick={isPut?() => updateItem(updatedItem.id):addItem}>{isPut?"UPDATE ITEM":"ADD ITEM"}</button>
+      <button onClick={isPut ? () => updateItem(updatedItem.id) : addItem}>{isPut ? "UPDATE ITEM" : "ADD ITEM"}</button>
 
       <table className="table">
         <thead>
@@ -115,12 +112,16 @@ function App() {
           {items.map((data, index) => {
             return (
               <tr>
-                <th scope="row">{index+1}</th>
-                <td>{data.username?data.username:"-"}</td>
-                <td>{data.email?data.email:"-"}</td>
-                <td>{data.numberPhone?data.numberPhone:"-"}</td>
-                <td><button onClick={() => deleteItem(data._id)}>DELETE</button></td>
-                <td><button onClick={() => openUpdate(data._id)}>UPDATE</button></td>
+                <th scope="row">{index + 1}</th>
+                <td>{data.username ? data.username : "-"}</td>
+                <td>{data.email ? data.email : "-"}</td>
+                <td>{data.numberPhone ? data.numberPhone : "-"}</td>
+                <td>
+                  <button onClick={() => deleteItem(data._id)}>DELETE</button>
+                </td>
+                <td>
+                  <button onClick={() => openUpdate(data._id)}>UPDATE</button>
+                </td>
               </tr>
             );
           })}
